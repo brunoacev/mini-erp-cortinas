@@ -7,6 +7,7 @@ while (opcao !== "0") {
       "   MINI ERP - FÁBRICA DE CORTINAS\n" +
       "=================================\n\n" +
       "1 - Criar Pedido\n" +
+      "2 - Listar Pedidos\n" +
       "0 - Sair\n\n" +
       "Digite a opção: ",
   );
@@ -14,6 +15,10 @@ while (opcao !== "0") {
   switch (opcao) {
     case "1":
       criarPedido();
+      break;
+
+    case "2":
+      listarPedidos();
       break;
 
     case "0":
@@ -78,4 +83,36 @@ function criarPedido() {
       pedido[3] +
       "\n\n",
   );
+
+  pedidos.push(pedido);
+}
+
+function listarPedidos() {
+  if (pedidos.length === 0) {
+    console.log("\nNenhum pedido cadastrado. \n\n");
+    return;
+  }
+
+  let relatorio = "===== LISTA DE PEDIDOS =====\n\n";
+
+  for (let i = 0; i < pedidos.length; i++) {
+    relatorio +=
+      "ID: " +
+      pedidos[i][0] +
+      "\n" +
+      "Cliente: " +
+      pedidos[i][1] +
+      "\n" +
+      "Modelo: " +
+      pedidos[i][2] +
+      "\n" +
+      "Quantidade: " +
+      pedidos[i][3] +
+      "\n" +
+      "Status: " +
+      pedidos[i][4] +
+      "\n\n";
+  }
+
+  console.log(relatorio);
 }

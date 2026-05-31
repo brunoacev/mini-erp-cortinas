@@ -1,5 +1,7 @@
 let opcao = "";
 let pedidos = [];
+let estoqueTradicional = [0, 0, 0];
+let estoqueMotorizada = [0, 0, 0, 0, 0];
 
 while (opcao !== "0") {
   opcao = prompt(
@@ -8,6 +10,7 @@ while (opcao !== "0") {
       "=================================\n\n" +
       "1 - Criar Pedido\n" +
       "2 - Listar Pedidos\n" +
+      "3 - Almoxarifado\n" +
       "0 - Sair\n\n" +
       "Digite a opção: ",
   );
@@ -19,6 +22,10 @@ while (opcao !== "0") {
 
     case "2":
       listarPedidos();
+      break;
+
+    case "3":
+      menuAlmoxarifado();
       break;
 
     case "0":
@@ -115,4 +122,60 @@ function listarPedidos() {
   }
 
   console.log(relatorio);
+}
+
+function menuAlmoxarifado() {
+  // estoqueMotorizada
+  // [0] = trilho
+  // [1] = tecido
+  // [2] = argolas
+  // [3] = motor
+  // [4] = controle
+
+  // estoqueTradicional
+  // [0] = trilho
+  // [1] = tecido
+  // [2] = argolas
+
+  let opcaoAlmoxarifado = "";
+
+  while (opcaoAlmoxarifado !== "0") {
+    opcaoAlmoxarifado = prompt(
+      "=========== ALMOXARIFADO ===========\n\n" +
+        "1 - Inserir materiais Tradicional\n" +
+        "2 - Inserir materiais Motorizada\n" +
+        "0 - Voltar\n\n" +
+        "Digite a opção: ",
+    );
+
+    switch (opcaoAlmoxarifado) {
+      case "1":
+        estoqueTradicional[0] += 1; // trilho
+        estoqueTradicional[1] += 1; // tecido
+        estoqueTradicional[2] += 8; // argolas
+
+        console.log("\nMaterial enviado para produção Tradicional.\n");
+
+        break;
+
+      case "2":
+        estoqueMotorizada[0] += 1; // trilho
+        estoqueMotorizada[1] += 1; // tecido
+        estoqueMotorizada[2] += 8; // argolas
+        estoqueMotorizada[3] += 1; // motor
+        estoqueMotorizada[4] += 1; // controle
+
+        console.log("\nMaterial enviado para produção Motorizada.\n");
+
+        break;
+
+      case "0":
+        console.log("\nVoltando ao menu principal.\n");
+        break;
+
+      default:
+        console.log("\nOpção inválida.\n");
+        break;
+    }
+  }
 }

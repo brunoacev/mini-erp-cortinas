@@ -2,6 +2,8 @@ let opcao = "";
 let pedidos = [];
 let estoqueTradicional = [0, 0, 0];
 let estoqueMotorizada = [0, 0, 0, 0, 0];
+let producaoTradicional = [0, 0, 0];
+let producaoMotorizada = [0, 0, 0, 0, 0];
 
 while (opcao !== "0") {
   opcao = prompt(
@@ -11,6 +13,7 @@ while (opcao !== "0") {
       "1 - Criar Pedido\n" +
       "2 - Listar Pedidos\n" +
       "3 - Almoxarifado\n" +
+      "4 - Produção\n" +
       "0 - Sair\n\n" +
       "Digite a opção: ",
   );
@@ -26,6 +29,10 @@ while (opcao !== "0") {
 
     case "3":
       menuAlmoxarifado();
+      break;
+
+    case "4":
+      menuProducao();
       break;
 
     case "0":
@@ -175,6 +182,99 @@ function menuAlmoxarifado() {
 
       default:
         console.log("\nOpção inválida.\n");
+        break;
+    }
+  }
+}
+
+function menuProducao() {
+  let opcaoProducao = "";
+
+  while (opcaoProducao !== "0") {
+    opcaoProducao = prompt(
+      "============= PRODUÇÃO =============\n\n" +
+        "1 - Receber material Tradicional\n" +
+        "2 - Receber material Motorizada\n" +
+        "0 - Voltar\n\n" +
+        "Digite a opção: ",
+    );
+
+    switch (opcaoProducao) {
+      case "1":
+        let quantidade = Number(
+          prompt("Quantas cortinas tradicionais deseja produzir?: "),
+        );
+
+        if (
+          estoqueTradicional[0] >= quantidade &&
+          estoqueTradicional[1] >= quantidade &&
+          estoqueTradicional[2] >= quantidade * 8
+        ) {
+          estoqueTradicional[0] -= quantidade;
+          estoqueTradicional[1] -= quantidade;
+          estoqueTradicional[2] -= quantidade * 8;
+
+          producaoTradicional[0] += quantidade;
+          producaoTradicional[1] += quantidade;
+          producaoTradicional[2] += quantidade * 8;
+
+          console.log(
+            "\nProdução recebeu material para " +
+              quantidade +
+              " cortina tradicional.\n",
+          );
+        } else {
+          console.log(
+            "\nEstoque insuficiente para produzir " +
+              quantidade +
+              " cortina.\n",
+          );
+        }
+
+        break;
+
+      case "2":
+        let quantidadeMotorizada = Number(
+          prompt("Quantas cortinas motorizadas deseja produzir?: "),
+        );
+
+        if (quantidadeMotorizada <= 0) {
+          console.log("\nQuantidade inválida.\n");
+          break;
+        }
+
+        if (
+          estoqueMotorizada[0] >= quantidadeMotorizada &&
+          estoqueMotorizada[1] >= quantidadeMotorizada &&
+          estoqueMotorizada[2] >= quantidadeMotorizada * 8 &&
+          estoqueMotorizada[3] >= quantidadeMotorizada &&
+          estoqueMotorizada[4] >= quantidadeMotorizada
+        ) {
+          estoqueMotorizada[0] -= quantidadeMotorizada;
+          estoqueMotorizada[1] -= quantidadeMotorizada;
+          estoqueMotorizada[2] -= quantidadeMotorizada * 8;
+          estoqueMotorizada[3] -= quantidadeMotorizada;
+          estoqueMotorizada[4] -= quantidadeMotorizada;
+
+          producaoMotorizada[0] += quantidadeMotorizada;
+          producaoMotorizada[1] += quantidadeMotorizada;
+          producaoMotorizada[2] += quantidadeMotorizada * 8;
+          producaoMotorizada[3] += quantidadeMotorizada;
+          producaoMotorizada[4] += quantidadeMotorizada;
+
+          console.log(
+            "\nProdução recebeu material para " +
+              quantidadeMotorizada +
+              " cortina motorizada.\n",
+          );
+        } else {
+          console.log(
+            "\nEstoque insuficiente para produzir " +
+              quantidadeMotorizada +
+              " cortina motorizada.\n",
+          );
+        }
+
         break;
     }
   }

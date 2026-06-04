@@ -16,7 +16,7 @@ while (opcao !== "0") {
       "3 - Almoxarifado\n" +
       "4 - Produção\n" +
       "5 - Consultar Estoque\n" +
-      "6 - Finalizar Produção\n" +
+      "6 - Expedição / Finalizar Pedido\n" +
       "7 - Pedidos Concluídos\n" +
       "0 - Sair\n\n" +
       "Digite a opção: ",
@@ -291,6 +291,13 @@ function menuProducao() {
           );
         }
 
+        break;
+      case "0":
+        console.log("\nVoltando ao menu principal.\n");
+        break;
+
+      default:
+        console.log("\nOpção inválida.\n");
         break;
     }
   }

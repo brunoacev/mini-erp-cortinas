@@ -4,6 +4,7 @@ let estoqueTradicional = [0, 0, 0];
 let estoqueMotorizada = [0, 0, 0, 0, 0];
 let producaoTradicional = [0, 0, 0];
 let producaoMotorizada = [0, 0, 0, 0, 0];
+let pedidosConcluidos = [];
 
 while (opcao !== "0") {
   opcao = prompt(
@@ -15,6 +16,8 @@ while (opcao !== "0") {
       "3 - Almoxarifado\n" +
       "4 - Produção\n" +
       "5 - Consultar Estoque\n" +
+      "6 - Finalizar Produção\n" +
+      "7 - Pedidos Concluídos\n" +
       "0 - Sair\n\n" +
       "Digite a opção: ",
   );
@@ -38,6 +41,14 @@ while (opcao !== "0") {
 
     case "5":
       consultarEstoque();
+      break;
+
+    case "6":
+      finalizarProducao();
+      break;
+
+    case "7":
+      listarPedidosConcluidos();
       break;
 
     case "0":
@@ -103,7 +114,7 @@ function criarPedido() {
       "\n\n",
   );
 
-  pedidos.push(pedido);
+  pedidos[pedidos.length] = pedido;
 }
 
 function listarPedidos() {
@@ -342,4 +353,143 @@ function consultarEstoque() {
       producaoMotorizada[4] +
       "\n",
   );
+}
+
+function finalizarProducao() {
+  if (pedidos.length === 0) {
+    console.log("\nNenhum pedido cadastrado.\n");
+    return;
+  }
+
+  let idPedido = Number(prompt("Digite o ID do pedido que deseja finalizar: "));
+  let pedidoEncontrado = -1;
+
+  for (let i = 0; i < pedidos.length; i++) {
+    if (pedidos[i][0] === idPedido) {
+      pedidoEncontrado = i;
+      break;
+    }
+  }
+
+  if (pedidoEncontrado === -1) {
+    console.log("\nPedido não encontrado.\n");
+    return;
+  }
+
+  let pedido = pedidos[pedidoEncontrado];
+  let modelo = pedido[2];
+  let quantidade = pedido[3];
+
+  if (pedido[4] === "Pedido Concluído") {
+    console.log("\nEste pedido já foi concluído.\n");
+    return;
+  }
+
+  if (modelo === "Cortina Tradicional") {
+    if (
+      producaoTradicional[0] >= quantidade &&
+      producaoTradicional[1] >= quantidade &&
+      producaoTradicional[2] >= quantidade * 8
+    ) {
+      producaoTradicional[0] -= quantidade;
+      producaoTradicional[1] -= quantidade;
+      producaoTradicional[2] -= quantidade * 8;
+
+      pedido[4] = "Pedido Concluído";
+      pedidosConcluidos[pedidosConcluidos.length] = pedido;
+
+      console.log(
+        "\nPEDIDO CONCLUÍDO COM SUCESSO!\n\n" +
+          "ID: " +
+          pedido[0] +
+          "\n" +
+          "Cliente: " +
+          pedido[1] +
+          "\n" +
+          "Modelo: " +
+          pedido[2] +
+          "\n" +
+          "Quantidade: " +
+          pedido[3] +
+          "\n" +
+          "Status: " +
+          pedido[4] +
+          "\n",
+      );
+    } else {
+      console.log(
+        "\nMaterial insuficiente na produção para concluir este pedido.\n",
+      );
+    }
+  } else if (modelo === "Cortina Motorizada") {
+    if (
+      producaoMotorizada[0] >= quantidade &&
+      producaoMotorizada[1] >= quantidade &&
+      producaoMotorizada[2] >= quantidade * 8 &&
+      producaoMotorizada[3] >= quantidade &&
+      producaoMotorizada[4] >= quantidade
+    ) {
+      producaoMotorizada[0] -= quantidade;
+      producaoMotorizada[1] -= quantidade;
+      producaoMotorizada[2] -= quantidade * 8;
+      producaoMotorizada[3] -= quantidade;
+      producaoMotorizada[4] -= quantidade;
+
+      pedido[4] = "Pedido Concluído";
+      pedidosConcluidos[pedidosConcluidos.length] = pedido;
+
+      console.log(
+        "\nPEDIDO CONCLUÍDO COM SUCESSO!\n\n" +
+          "ID: " +
+          pedido[0] +
+          "\n" +
+          "Cliente: " +
+          pedido[1] +
+          "\n" +
+          "Modelo: " +
+          pedido[2] +
+          "\n" +
+          "Quantidade: " +
+          pedido[3] +
+          "\n" +
+          "Status: " +
+          pedido[4] +
+          "\n",
+      );
+    } else {
+      console.log(
+        "\nMaterial insuficiente na produção para concluir este pedido.\n",
+      );
+    }
+  }
+}
+
+function listarPedidosConcluidos() {
+  if (pedidosConcluidos.length === 0) {
+    console.log("\nNenhum pedido concluído.\n");
+    return;
+  }
+
+  let relatorio = "===== PEDIDOS CONCLUÍDOS =====\n\n";
+
+  for (let i = 0; i < pedidosConcluidos.length; i++) {
+    relatorio +=
+      "ID: " +
+      pedidosConcluidos[i][0] +
+      "\n" +
+      "Cliente: " +
+      pedidosConcluidos[i][1] +
+      "\n" +
+      "Modelo: " +
+      pedidosConcluidos[i][2] +
+      "\n" +
+      "Quantidade: " +
+      pedidosConcluidos[i][3] +
+      "\n" +
+      "Status: " +
+      pedidosConcluidos[i][4] +
+      "\n\n";
+  }
+
+  console.log(relatorio);
 }

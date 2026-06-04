@@ -14,6 +14,7 @@ while (opcao !== "0") {
       "2 - Listar Pedidos\n" +
       "3 - Almoxarifado\n" +
       "4 - Produção\n" +
+      "5 - Consultar Estoque\n" +
       "0 - Sair\n\n" +
       "Digite a opção: ",
   );
@@ -33,6 +34,10 @@ while (opcao !== "0") {
 
     case "4":
       menuProducao();
+      break;
+
+    case "5":
+      consultarEstoque();
       break;
 
     case "0":
@@ -278,4 +283,63 @@ function menuProducao() {
         break;
     }
   }
+}
+
+function consultarEstoque() {
+  console.log(
+    "\n===== ESTOQUE DO ALMOXARIFADO =====\n\n" +
+      "CORTINA TRADICIONAL\n" +
+      "Trilho: " +
+      estoqueTradicional[0] +
+      "\n" +
+      "Tecido: " +
+      estoqueTradicional[1] +
+      "\n" +
+      "Argolas: " +
+      estoqueTradicional[2] +
+      "\n\n" +
+      "CORTINA MOTORIZADA\n" +
+      "Trilho: " +
+      estoqueMotorizada[0] +
+      "\n" +
+      "Tecido: " +
+      estoqueMotorizada[1] +
+      "\n" +
+      "Argolas: " +
+      estoqueMotorizada[2] +
+      "\n" +
+      "Motor: " +
+      estoqueMotorizada[3] +
+      "\n" +
+      "Controle: " +
+      estoqueMotorizada[4] +
+      "\n\n" +
+      "===== MATERIAL RECEBIDO NA PRODUÇÃO =====\n\n" +
+      "PRODUÇÃO TRADICIONAL\n" +
+      "Trilho: " +
+      producaoTradicional[0] +
+      "\n" +
+      "Tecido: " +
+      producaoTradicional[1] +
+      "\n" +
+      "Argolas: " +
+      producaoTradicional[2] +
+      "\n\n" +
+      "PRODUÇÃO MOTORIZADA\n" +
+      "Trilho: " +
+      producaoMotorizada[0] +
+      "\n" +
+      "Tecido: " +
+      producaoMotorizada[1] +
+      "\n" +
+      "Argolas: " +
+      producaoMotorizada[2] +
+      "\n" +
+      "Motor: " +
+      producaoMotorizada[3] +
+      "\n" +
+      "Controle: " +
+      producaoMotorizada[4] +
+      "\n",
+  );
 }
